@@ -28,7 +28,7 @@
                     <option hidden selected disabled>--select type--</option>
                     <option value="Bunga">Bunga</option>
                     <option value="Obat">Obat</option>
-                    <option value="Buah - Buahan">Buah-Buahan</option>
+                    <option value="Buah-Buahan">Buah-Buahan</option>
                     <option value="Kacang-Kacangan">Kacang-Kacangan</option>
                     <option value="Rumput">Rumput</option>
                 </select>

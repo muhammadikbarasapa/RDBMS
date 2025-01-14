@@ -14,19 +14,19 @@
                         </div>
                     </div>
                     @if (session('add'))
-                    <div class="alert alert-success">
-                        {{ session('add') }}
-                    </div>
+                        <div class="alert alert-success">
+                            {{ session('add') }}
+                        </div>
                     @endif
                     @if (session('update'))
-                    <div class="alert alert-success">
-                        {{ session('update') }}
-                    </div>
+                        <div class="alert alert-success">
+                            {{ session('update') }}
+                        </div>
                     @endif
                     @if (session('delete'))
-                    <div class="alert alert-warning">
-                        {{ session('delete') }}
-                    </div>
+                        <div class="alert alert-warning">
+                            {{ session('delete') }}
+                        </div>
                     @endif
                 </div>
                 <div class="bg-light p-20">
@@ -52,34 +52,39 @@
                             </thead>
                             <tbody>
                                 @foreach ($plants as $plant)
-                                <tr>
-                                    <td><a href="{{route('plants.edit', $plant['id'])}}"
-                                            class="round round-success">{{$plant['kode_plant']}}</a></td>
-                                    <td>
-                                        <h6>{{$plant['name']}}</h6><small
-                                            class="text-muted">{{$plant['additional']}}</small>
-                                    </td>
-                                    <td><span class="label label-primary">{{$plant['type']}}</span></td>
-                                    <td>
-                                        {{ $plant['growth'] ? implode(', ', array_map(function ($item) {
-                                        return "Tanggal: {$item['tanggal']}, Growth: {$item['growth']}";
-                                      }, json_decode($plant['growth'], true))) : '-' }}
-                                    </td>
+                                    <tr>
+                                        <td><a href="{{route('plants.edit', $plant['id'])}}"
+                                                class="round round-success">{{$plant['kode_plant']}}</a></td>
+                                        <td>
+                                            <h6>{{$plant['name']}}</h6><small
+                                                class="text-muted">{{$plant['additional']}}</small>
+                                        </td>
+                                        <td><span class="label label-primary">{{$plant['type']}}</span></td>
+                                        <td>
+                                            @if ($plant['growth'] != NULL)
+                                                @foreach (json_decode($plant['growth'], true) as $item)
+                                                    {{$item['growth']}} : {{$item['tanggal']}}<br>
+                                                @endforeach
+                                            @else
+                                                -
+                                            @endif
 
-                                    <td class="d-flex">
-                                        <div class="mr-2">
-                                            <a href="{{route('plants.edit', $plant['id'])}}"
-                                                class="fa-solid fa-file-pen text-primary"></a>
-                                        </div>
-                                        <form action="{{route('plants.destroy', $plant['id'])}}" method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit"
-                                                class="fa-solid fa-trash text-danger btn btn-outline-none"
-                                                style="padding:  0 !important"></button>
-                                        </form>
-                                    </td>
-                                </tr>
+                                        </td>
+
+                                        <td class="d-flex">
+                                            <div class="mr-2">
+                                                <a href="{{route('plants.edit', $plant['id'])}}"
+                                                    class="fa-solid fa-file-pen text-primary"></a>
+                                            </div>
+                                            <form action="{{route('plants.destroy', $plant['id'])}}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit"
+                                                    class="fa-solid fa-trash text-danger btn btn-outline-none"
+                                                    style="padding:  0 !important"></button>
+                                            </form>
+                                        </td>
+                                    </tr>
                                 @endforeach
                             </tbody>
                         </table>
